@@ -1,0 +1,16 @@
+{
+    "index_patterns":["adaeu-*"],
+    "settings":{
+        "number_of_shards":1,
+        "number_of_replicas":0
+    },
+    "mappings":{
+        "properties":{
+            "symbol": {"type":"text"},
+            "bid":{"type":"float"},
+            "ask":{"type":"float"},
+            "percent":{"type":"float"},
+            "diff":{"type":"float"}
+        }
+    }
+}
