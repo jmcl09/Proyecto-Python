@@ -141,6 +141,14 @@ python3 Binance.py
 
 Y empezará a escribir la información en nuestro txt.
 
+<h4>IMPORTANTE</h4>
+
+El proyecto subido ya tiene instalado todo lo necesario para el arranque de ELK y el envío automático de los eventos generados con la app de python a Elasticsearch.
+
+No hace falta realizar la fase de Instalación en las máquinas generadas por docker-compose.
+
+Únicamente hay que hacer la parte de Funcionamiento, si estás en una empresa privada puede ser que el proxy te de problemas a la hora de ejecutar el programa dentro de la máquina de Logstash, te recomiendo que ejecutes el programa de python desde la línea de comandos de tu ordenador o IDE y no desde la línea de comandos interna de Logstash.
+
 <h1>
     4. Autor
 </h1>
