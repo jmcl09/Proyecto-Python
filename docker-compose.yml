@@ -4,13 +4,14 @@
           image: elasticsearch:7.12.0
           hostname: elasticsearch
           container_name: elasticPy
-          volumes:
-              - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
           ports:
             - 9200:9200
           environment: 
             ES_JAVA_OPTS: "-Xmx456m -Xms456m"
             ELASTIC_PASSWORD: changeme
+            discovery.seed_hosts : 127.0.0.1:9200
+          volumes:
+            - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
           networks:
             - mi-puente
           healthcheck:
@@ -18,16 +19,17 @@
             interval: 30s
             timeout: 10s
             retries: 5
+
         kibana:
           image: kibana:7.12.0
           container_name: kibanaPy
           hostname: kibana
-          volumes:
-            - ./kibana/config/kibana.yml:/usr/share/kibana/kibana.yml       
           environment:
             ELASTICSEARCH_URL: http://elasticsearch:9200
             ELASTICSEARCH_USERNAME: elastic
             ELASTICSEARCH_PASSWORD: changeme
+          volumes:
+            - ./kibana/config/kibana.yml:/usr/share/kibana/kibana.yml       
           healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:5601"]
             interval: 15s
@@ -38,18 +40,18 @@
           networks:
             - mi-puente
           restart: on-failure:15
+
         logstash:
-          image: docker.elastic.co/logstash/logstash-oss:7.12.0
+          build: .
           container_name: logstashPy
           hostname: logstash_host #Nombre del host
           volumes:
-            - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml #Archivo de configuracion de logstash
             - ./logstash/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml # Archivo de configuracion de las pipelines
-            - ./logstash/config/startup.options:/usr/share/logstash/config/startup.options
             - ./logstash/pipeline:/usr/share/logstash/pipeline # Carpetas que tendrán .conf
-            - ./logstash/patterns:/usr/share/logstash/patterns # Guardaremos los patrones
             - ./logstash/templates:/usr/share/logstash/templates # Ruta donde guardaremos las plantillas
             - ./logstash/logs:/usr/share/logstash/logs # Ruta para guardar los logs de muestra 
+            - ./logstash/python/Binance.py:/usr/share/logstash/python/Binance.py
+            - ./logstash/python/data.txt:/usr/share/logstash/python/data.txt
           ports:
             - "5044:5044"
             - "5000:5000/tcp"
@@ -62,17 +64,13 @@
           depends_on:
             filebeat:
               condition: service_healthy
-#          command: ["logstash","-f","/usr/share/logstash/pipeline/logstash.conf"]
+          #command: ["python3","/usr/share/logstash/python/Binance.py"]
           depends_on:
             - elasticsearch
           restart: on-failure:15 #MIRAR EL TEMA DE ONFAILURE N VECES
           user: root
+        
       networks:
         mi-puente:
           driver: bridge
-      volumes:
-        elasticsearch:
-          driver: local
-        kibana:
-          driver: local
         

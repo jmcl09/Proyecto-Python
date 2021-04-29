@@ -1,4 +1,0 @@
-TRACE_PATTERN (?m)(^%{LOGLEVEL:level}) %{DATESTAMP:date} %{WORD:name} %{WORD:pid} \[%{WORD:status}\] %{GREEDYDATA:description} %{JAVACLASS:class}\:%{NUMBER:line} %{GREEDYDATA:result}
-DEBUG_PATTERN (^%{LOGLEVEL:level}) %{DATESTAMP:date} %{WORD:name} %{WORD:pid} \[%{WORD:status}\] %{GREEDYDATA:description} %{JAVACLASS:class}\:%{NUMBER:line} %{WORD} %{WORD:method}\: %{GREEDYDATA:result}
-INFO_INOUT_PATTERN (^%{LOGLEVEL:level})  %{DATESTAMP:date} %{WORD:name} %{WORD:pid} \[%{WORD:status}\] %{GREEDYDATA:description} %{JAVACLASS:class}\:%{NUMBER:line} %{WORD} %{(INPUT|OUTPUT):method}\: %{GREEDYDATA:result}
-INFO_TIME_PATTERN (^%{LOGLEVEL:level})  %{DATESTAMP:date} %{WORD:name} %{WORD:pid} \[%{WORD:status}\] %{GREEDYDATA:description} %{JAVACLASS:class}\:%{NUMBER:line} %{GREEDYDATA:time_of}

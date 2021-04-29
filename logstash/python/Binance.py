@@ -1,6 +1,5 @@
 from binance.client import Client 
 from binance.websockets import BinanceSocketManager
-import pandas as pd
 import time
 import json
 
@@ -10,23 +9,10 @@ api_secret = "sxp8145OlFKLVlwcNbhfnkJhzCDSL4Ma0y4zUVivNVrN9uS8gsBOViioeAzqBsiG"
 client = Client(api_key,api_secret)
 contador = 0
 
-#data = []
-
 def process_message(msg):
     global contador
-    if contador == 1:
-     #   data.append(
-      #      {
-       #         'symbol' : msg['s'],
-        #        'bid' : msg['b'],
-         #       'ask' : msg['a'],
-          #      'percent' : msg['P'],
-           #     'diff' : msg['p']
-            #}
-        #)
-        
-        with open('./logstash/logs/data.text', 'a') as outfile:
-            #json.dump(data, outfile)
+    if contador == 3:
+        with open('data.txt', 'a') as outfile:
             outfile.write("Bid - Ask ADAEUR price: {} - {} - {} - {}\n".format(msg['b'], msg['a'], msg['p'], msg['P']))
 
         print("Bid - Ask ADAEUR price: {} - {} - {} - {}\n".format(msg['b'], msg['a'], msg['p'], msg['P']))
