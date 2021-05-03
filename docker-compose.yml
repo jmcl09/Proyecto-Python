@@ -7,6 +7,7 @@
           ports:
             - 9200:9200
           environment: 
+            TZ: "Europe/Madrid"
             ES_JAVA_OPTS: "-Xmx456m -Xms456m"
             ELASTIC_PASSWORD: changeme
             discovery.seed_hosts : 127.0.0.1:9200
@@ -25,6 +26,7 @@
           container_name: kibanaPy
           hostname: kibana
           environment:
+            TZ: "Europe/Madrid"
             ELASTICSEARCH_URL: http://elasticsearch:9200
             ELASTICSEARCH_USERNAME: elastic
             ELASTICSEARCH_PASSWORD: changeme
@@ -58,6 +60,7 @@
             - "5000:5000/udp"
             - "9600:9600"
           environment:
+            TZ: "Europe/Madrid"
             ES_JAVA_OPTS: "-Xmx600m -Xms600m"
           networks:
             - mi-puente

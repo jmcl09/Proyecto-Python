@@ -19,8 +19,21 @@ ci = IndicesClient(conexion)
 #print(ci.put_alias("adaeu-2021.04.29","cardano"))
 
 # Obtener iformación desde el alias
-print(ci.get("cardano"))
+#print(ci.get("cardano"))
 
 # Insertar datos
-print(ci.bulk())
+with open("datos.json", "r") as f:  
+    contenido = f.read()
+    data = contenido.replace('[',' ')
+    data = data.replace(']',' ')
+    data = data.split('}')
+
+    
+    data[0]+=('}')
+    
+    #final = json.loads(data)
+    
+print(data[1])
+
+
 

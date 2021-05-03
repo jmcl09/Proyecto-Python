@@ -1,7 +1,15 @@
-{
+[{
     "symbol": "BTC",
     "bid": 2.3,
     "ask": 3.3,
     "percent": 343.3,
     "diff": 5.5
+},
+{
+    "symbol": "ETHERUM",
+    "bid": 2.3,
+    "ask": 3.3,
+    "percent": 343.3,
+    "diff": 5.5
 }
+]
